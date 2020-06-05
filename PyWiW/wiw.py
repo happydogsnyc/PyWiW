@@ -370,7 +370,7 @@ class WiW(object):
         else :
             return {'error' : 'missing id or wrong type'}
     
-    def create_shift(self, user_id = 0, schedule_id, position_id, site_id, start, end, coverage):
+    def create_shift(self, schedule_id, position_id, site_id, start, end, coverage, user_id = 0):
         if schedule_id and position_id and site_id and start and end and coverage :
             param = {
                 'user_id' : user_id, 
