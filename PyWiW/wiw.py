@@ -327,7 +327,7 @@ class WiW(object):
         else :
             return {'error' : 'missing ids or wrong type'}
 
-    def update_user(self, id : int, positions = None, schedules = None, email = None, stuart_id = None, reactivate = None, first_name : str, last_name : str):
+    def update_user(self, id : int, first_name : str, last_name : str, positions = None, schedules = None, email = None, stuart_id = None, reactivate = None):
         if id and first_name and last_name :
             param = {
                 'positions' : positions,
