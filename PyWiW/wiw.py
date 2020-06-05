@@ -327,7 +327,7 @@ class WiW(object):
         else :
             return {'error' : 'missing ids or wrong type'}
 
-    def update_user(self, id : int, positions = None, schedules = None, email = None, first_name : str, last_name : str, stuart_id = None, reactivate = None):
+    def update_user(self, id : int, positions = None, schedules = None, email = None, stuart_id = None, reactivate = None, first_name : str, last_name : str):
         if id and first_name and last_name :
             param = {
                 'positions' : positions,
@@ -342,7 +342,7 @@ class WiW(object):
         else :
             return {'error' : 'missing id or wrong type'}
 
-    def list_shifts(self, start : str, end : str, unpublished : bool, include_open = True, deleted = True, all_locations = False, schedule_id : str, position_id : str) :
+    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id : str, position_id : str, include_open = True, deleted = True, all_locations = False) :
         if all_locations == True :
             location_id = None
             position_id = None
