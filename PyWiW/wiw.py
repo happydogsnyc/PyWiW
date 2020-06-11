@@ -302,13 +302,15 @@ class WiW(object):
         else :
             return {'error' : 'user_id not specified'}
 
-    def create_user(self, email : str, first_name : str, last_name : str, stuart_id : str):
+    def create_user(self, email : str, first_name : str, last_name : str, stuart_id : str, positions = None, schedules = None):
         if email and first_name and last_name and stuart_id :
             param = {
                 'email' : email,
                 'first_name' : first_name,
                 'last_name' : last_name,
                 'stuart_id' : stuart_id,
+                'positions' : positions,
+                'schedules' : schedules,
                 'is_hidden' : False,
                 'is_payroll' : False,
                 'is_private' : True,
