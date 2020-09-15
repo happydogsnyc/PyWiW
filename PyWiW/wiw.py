@@ -127,7 +127,6 @@ class WiW(object):
         """
         self.headers['W-UserID'] = user_id
 
-
     def get(self, method, params=None, headers=None):
         """
         Send a get request to the WhenIWork api
@@ -284,10 +283,10 @@ class WiW(object):
         else :
             return {'error' : 'name not specified'}
     
-    def get_users(self, location_id : list, show_pending = None, only_pending = None, search = None):
-        if location_id :
+    def get_users(self, location_id =None, show_pending = None, only_pending = None, search = None):
+        if 1 == 1 :
             param = {
-                'location_id' : location_id, 
+                # 'location_id' : location_id, 
                 'show_pending' : show_pending, 
                 'only_pending' : only_pending, 
                 'search' : search
@@ -308,9 +307,9 @@ class WiW(object):
                 'email' : email,
                 'first_name' : first_name,
                 'last_name' : last_name,
-                'stuart_id' : stuart_id,
+                'employee_code' : stuart_id,
                 'positions' : positions,
-                'schedules' : schedules,
+                'locations' : schedules,
                 'is_hidden' : False,
                 'is_payroll' : False,
                 'is_private' : True,
@@ -337,14 +336,14 @@ class WiW(object):
                 'email' : email,
                 'first_name' : first_name,
                 'last_name' : last_name,
-                'stuart_id' : stuart_id,
+                'employee_code' : stuart_id,
                 'reactivate' : reactivate
             }
             return self.update('/users/' + str(id), params=param)
         else :
             return {'error' : 'missing id or wrong type'}
 
-    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id : str, position_id : str, include_open = True, deleted = True, all_locations = False) :
+    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id, position_id, include_open = True, deleted = True, all_locations = False) :
         if all_locations == True :
             location_id = None
             position_id = None
@@ -379,10 +378,34 @@ class WiW(object):
                 'location_id' : schedule_id, 
                 'position_id' : position_id, 
                 'site_id' : site_id, 
-                'start' : start, 
-                'end' : end, 
+                'start_time' : start, 
+                'end_time' : end, 
                 'instances' : coverage
             }
+            return self.post('/shifts', params=param)
         else :
             return {'error' : 'missing argments or wrong type'}
+
+    def publish_schedule(self, ids:list):
+        param = {
+            'ids' : ids
+        }
+        return self.post('/shifts/publish', params=param)
+
+    def unpublish_schedule(self, ids:list):
+        param = {
+            'ids' : ids
+        }
+        return self.post('/shifts/unpublish', params=param)
+
+    def add_prio_position(self, id : int, prio_position: int):
+        if id :
+            positions = self.get_user(id)['positions']
+            positions.append(prio_position)
+            param = {
+                'positions' : positions
+            }
+            return self.update('/users/' + str(id), params=param)
+        else :
+            return {'error' : 'missing id or wrong type'}
 
