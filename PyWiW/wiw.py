@@ -343,7 +343,7 @@ class WiW(object):
         else :
             return {'error' : 'missing id or wrong type'}
 
-    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id, position_id, include_open = True, deleted = True, all_locations = False) :
+    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id, position_id, include_open = True, deleted = False, all_locations = False) :
         if all_locations == True :
             location_id = None
             position_id = None
@@ -398,7 +398,7 @@ class WiW(object):
         }
         return self.post('/shifts/unpublish', params=param)
 
-    def add_prio_position(self, id : int, prio_position: int):
+    def add_driver_position(self, id : int, prio_position: int):
         if id :
             positions = self.get_user(id)['positions']
             positions.append(prio_position)
@@ -408,4 +408,24 @@ class WiW(object):
             return self.update('/users/' + str(id), params=param)
         else :
             return {'error' : 'missing id or wrong type'}
+
+    def remove_driver_position(self, id : int, prio_position: int):
+        if id :
+            positions = self.get_user(id)['positions']
+            positions.remove(prio_position)
+            param = {
+                'positions' : positions
+            }
+            return self.update('/users/' + str(id), params=param)
+        else :
+            return {'error' : 'missing id or wrong type'}
+
+    def unassign_shifts(self, ids : list):
+        if ids:
+            param = {
+                'shift_ids' : ids
+            }
+            return self.post('/shifts/unassign', params=param)
+        else:
+            {'error' : 'missing id or wrong type'}
 
