@@ -343,7 +343,7 @@ class WiW(object):
         else :
             return {'error' : 'missing id or wrong type'}
 
-    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id, position_id, include_open = True, deleted = False, all_locations = False) :
+    def list_shifts(self, start : str, end : str, unpublished : bool, schedule_id, position_id, include_open = True, include_onlyopen = False, deleted = False, all_locations = False) :
         if all_locations == True :
             location_id = None
             position_id = None
@@ -352,6 +352,7 @@ class WiW(object):
             'end' : end,
             'unpublished' : unpublished,
             'include_open' : include_open,
+            'include_onlyopen' : include_onlyopen,
             'deleted' : deleted,
             'all_locations' : all_locations,
             'location_id' : schedule_id,
