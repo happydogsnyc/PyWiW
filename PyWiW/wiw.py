@@ -228,8 +228,9 @@ class WiW(object):
         else:
             return {'error': 'Method is not str!!'}
 
-    def get_positions(self):
-        return self.get('/positions')['positions']
+    def get_positions(self, show_deleted = False):
+        params = {'show_deleted': show_deleted}
+        return self.get('/positions', params=params)['positions']
 
     def get_jobsites(self):
         return self.get('/sites')['sites']
