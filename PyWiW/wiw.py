@@ -290,7 +290,7 @@ class WiW(object):
                 # 'location_id' : location_id, 
                 'show_pending' : show_pending, 
                 'only_pending' : only_pending, 
-                'show_deleted' : show_deleted, 
+                'show_deleted' : show_deleted,
                 'search' : search
                 }
             return self.get('/users', params = param)['users']
