@@ -284,12 +284,13 @@ class WiW(object):
         else :
             return {'error' : 'name not specified'}
     
-    def get_users(self, location_id =None, show_pending = None, only_pending = None, search = None):
+    def get_users(self, location_id =None, show_pending = None, only_pending = None, show_deleted = None, search = None):
         if 1 == 1 :
             param = {
                 # 'location_id' : location_id, 
                 'show_pending' : show_pending, 
                 'only_pending' : only_pending, 
+                'show_deleted' : show_deleted, 
                 'search' : search
                 }
             return self.get('/users', params = param)['users']
