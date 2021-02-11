@@ -232,8 +232,9 @@ class WiW(object):
         params = {'show_deleted': show_deleted}
         return self.get('/positions', params=params)['positions']
 
-    def get_jobsites(self):
-        return self.get('/sites')['sites']
+    def get_jobsites(self, include_deleted = False):
+        params = {'include_deleted': include_deleted}
+        return self.get('/sites', params=params)['sites']
     
     def get_schedules(self):
         return self.get('/locations')['locations']
