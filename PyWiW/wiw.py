@@ -370,6 +370,12 @@ class WiW(object):
         else :
             return {'error' : 'missing id or wrong type'}
     
+    def get_shift_history(self, id : int):
+        if id :
+            return self.get('/shifts/history/' + str(id))['history']
+        else :
+            return {'error' : 'missing id or wrong type'}
+    
     def delete_shift(self, id : int):
         if id :
             return self.delete('/shifts/' + str(id))
