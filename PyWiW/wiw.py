@@ -22,6 +22,7 @@ class WiW(object):
     __api_token = None
     __api_headers = {}
     __api_endpoint = "https://api.wheniwork.com/2"
+    __tags_api_endpoint = "https://worktags.api.wheniwork-production.com"
     __verify_ssl = False
     __api_resp = None
 
@@ -57,7 +58,7 @@ class WiW(object):
     @property
     def endpoint(self):
         """
-        Used to set or retrieve the api endpoint::
+        Used to set or retrieve the standard api endpoint::
 
             from wheniwork import WhenIWork
 
@@ -66,6 +67,19 @@ class WiW(object):
             print(a.endpoint)
         """
         return self.__api_endpoint
+
+    @property
+    def endpoint_tags(self):
+        """
+        Used to set or retrieve the tagging api endpoint::
+
+            from wheniwork import WhenIWork
+
+            a = WhenIWork()
+            a.endpoint_tags = "https://worktags.api.wheniwork-production.com"
+            print(a.endpoint)
+        """
+        return self.__tags_api_endpoint
 
     @property
     def headers(self):
@@ -127,7 +141,7 @@ class WiW(object):
         """
         self.headers['W-UserID'] = user_id
 
-    def get(self, method, params=None, headers=None):
+    def get(self, method, params=None, headers=None, api=None):
         """
         Send a get request to the WhenIWork api
 
@@ -139,7 +153,10 @@ class WiW(object):
         """
         if isinstance(method, str):
             if self.token is not None:
-                url = self.endpoint+method
+                if api == 'tags':
+                    url = self.endpoint_tags+method
+                else:
+                    url = self.endpoint+method
                 head = {'W-Token': self.token}
                 head.update(self.headers)
                 if headers:
@@ -153,7 +170,7 @@ class WiW(object):
         else:
             return {'error': 'Wrong method format'}
 
-    def post(self, method, params=None, headers=None):
+    def post(self, method, params=None, headers=None, api=None):
         """
         POST to the WhenIWork api
 
@@ -164,7 +181,10 @@ class WiW(object):
         """
         if isinstance(method, str):
             if self.token is not None:
-                url = self.endpoint+method
+                if api == 'tags':
+                    url = self.endpoint_tags+method
+                else:
+                    url = self.endpoint+method
                 head = {'W-Token': self.token}
                 head.update(self.headers)
                 if headers:
@@ -179,7 +199,7 @@ class WiW(object):
             return {'error': 'Wrong method format'}
 
 
-    def update(self, method, params=None, headers=None):
+    def update(self, method, params=None, headers=None, api=None):
         """
         Update an object on WhenIWork
 
@@ -190,7 +210,10 @@ class WiW(object):
         """
         if isinstance(method, str):
             if self.token is not None:
-                url = self.endpoint+method
+                if api == 'tags':
+                    url = self.endpoint_tags+method
+                else:
+                    url = self.endpoint+method
                 head = {'W-Token': self.token}
                 head.update(self.headers)
                 if headers:
@@ -204,7 +227,7 @@ class WiW(object):
         else:
             return {'error': 'Wrong method format'}
 
-    def delete(self, method, headers=None):
+    def delete(self, method, headers=None, api=None):
         """
                 Delete an object on WhenIWork
 
@@ -214,7 +237,10 @@ class WiW(object):
                 """
         if isinstance(method, str):
             if self.token is not None:
-                url = self.endpoint + method
+                if api == 'tags':
+                    url = self.endpoint_tags+method
+                else:
+                    url = self.endpoint+method
                 head = {'W-Token': self.token}
                 head.update(self.headers)
                 if headers:
@@ -440,3 +466,95 @@ class WiW(object):
         else:
             {'error' : 'missing id or wrong type'}
 
+
+    def get_tags(self):
+        return self.get('/tags', api='tags')
+
+    def get_tag(self, id: str):
+        if id: 
+            param = {
+                'id' : id
+            }
+            return self.get('/tags/' + id, params=param, api='tags')
+        else:
+            {'error' : 'missing id or wrong type'}
+
+    def get_user_tags(self, id: int):
+        if id: 
+            param = {
+                'id' : id
+            }
+            return self.get('/users/' + str(id), params=param, api='tags')
+        else:
+            {'error' : 'missing id or wrong type'}
+
+    def get_shift_tags(self, id: int):
+        if id: 
+            param = {
+                'id' : id
+            }
+            return self.get('/shifts/' + str(id), params=param, api='tags')
+        else:
+            {'error' : 'missing id or wrong type'}
+
+    def create_tag(self, tag_name: str):
+        if tag_name:
+            param = {
+                'name': tag_name
+            }
+            return self.post('/tags', params=param, api='tags')
+        else: 
+            return {'error': 'tag name not specified or wrong type'}
+
+    def list_user_tags(self, user_ids: list):
+        ''' user id's in list must be strings '''
+        if user_ids:
+            param = {
+                'ids': user_ids
+            }
+            return self.post('/users', params=param, api='tags')
+        else: 
+            return {'error': 'missing ids or wrong type'}
+
+    def list_shift_tags(self, shift_ids: list):
+        ''' shift id's in list must be strings '''
+        if shift_ids:
+            param = {
+                'ids': shift_ids
+            }
+            return self.post('/shifts', params=param, api='tags')
+        else: 
+            return {'error': 'missing ids or wrong type'}
+
+    def update_tag(self, id: str, tag_name: str):
+        if tag_name:
+            param = {
+                'name': tag_name
+            }
+            return self.update('/tags/' + id, params=param, api='tags')
+        else: 
+            return {'error': 'id not specifed or wrong type'}
+
+    def update_user_tags(self, id: int, tags: list):
+        if id:
+            param = {
+                'tags': tags
+            }
+            return self.update('/users/' + str(id), params=param, api='tags')
+        else: 
+            return {'error': 'id not specifed or wrong type'}
+
+    def update_shift_tags(self, id: int, tags: list):
+        if id:
+            param = {
+                'tags': tags
+            }
+            return self.update('/shifts/' + str(id), params=param, api='tags')
+        else: 
+            return {'error': 'id not specifed or wrong type'}
+
+    def delete_tag(self, id: str):
+        if id:
+            return self.delete('/tags/' + id, api='tags')
+        else:
+            return {'error' : 'missing id or wrong type'}
