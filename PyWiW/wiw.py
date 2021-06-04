@@ -357,17 +357,11 @@ class WiW(object):
         else :
             return {'error' : 'missing ids or wrong type'}
 
-    def update_user(self, id : int, first_name : str, last_name : str, positions = None, schedules = None, email = None, stuart_id = None, reactivate = None):
-        if id and first_name and last_name :
-            param = {
-                'positions' : positions,
-                'locations' : schedules,
-                'email' : email,
-                'first_name' : first_name,
-                'last_name' : last_name,
-                'employee_code' : stuart_id,
-                'reactivate' : reactivate
-            }
+    def update_user(self, id : int, **kwargs):
+        if id :
+            param = {}
+            for key, value in kwargs.items():
+                param.update({str(key): value})
             return self.update('/users/' + str(id), params=param)
         else :
             return {'error' : 'missing id or wrong type'}
