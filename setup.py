@@ -14,11 +14,12 @@ setup(
     description='A When I Work API Python wrapper',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    license='',
+    license='MIT',
     url='https://github.com/bannour-stuart/PyWiW',
+    download_url='https://github.com/bakr-a/PyWiW/archive/refs/tags/v0.1.1.tar.gz',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
-        'License :: None',
+        'License :: OSI Approved :: MIT License',  
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
         'Topic :: Office/Business :: Scheduling'
