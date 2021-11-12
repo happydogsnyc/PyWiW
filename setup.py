@@ -3,12 +3,9 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-with open('requirements.txt') as fh:
-    requirements = fh.read().splitlines()
-
 setup(
     name='PyWiW',
-    version='0.1.1',
+    version='0.1.2',
     author='Bakr Annour',
     author_email='b.annour@stuart.com',
     description='A When I Work API Python wrapper',
@@ -25,5 +22,9 @@ setup(
         'Topic :: Office/Business :: Scheduling'
     ],
     packages=find_packages(),
-    install_requires=requirements,
+    install_requires=[
+    'requests==2.23.0', 
+    'vcrpy==4.0.2', 
+    'pytest==5.4.2'
+    ],
 )
