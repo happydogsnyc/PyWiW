@@ -1,0 +1,11 @@
+LICENSE.txt
+README.md
+setup.cfg
+setup.py
+PyWiW/__init__.py
+PyWiW/wiw.py
+PyWiW.egg-info/PKG-INFO
+PyWiW.egg-info/SOURCES.txt
+PyWiW.egg-info/dependency_links.txt
+PyWiW.egg-info/requires.txt
+PyWiW.egg-info/top_level.txt

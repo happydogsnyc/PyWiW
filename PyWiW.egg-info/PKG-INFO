@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: PyWiW
+Version: 0.1.2
+Summary: A When I Work API Python wrapper
+Home-page: https://github.com/bannour-stuart/PyWiW
+Author: Bakr Annour
+Author-email: b.annour@stuart.com
+License: MIT
+Download-URL: https://github.com/bakr-a/PyWiW/archive/refs/tags/v0.1.2.tar.gz
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Office/Business :: Scheduling
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# PyWiW
+
+PyWiW is a Python wrapper library for the WhenIWork API built to simplify requests to the WhenIWork platform. 
+
+## Installation
+
+From GitHub :
+
+```
+$ pip install git+https://github.com/bannour-stuart/PyWiW
+```
+
+## Prerequisites
+
+* Python 3.7
+* A WhenIWork account and API token. Find out how to get your account's token on https://apidocs.wheniwork.com/external/index.html#section/Authentication
+
+## How to set up
+
+```
+from PyWiW import WiW
+
+key = '<API_token>'
+
+account = WiW(token = key)
+# Set child account user_ID with which you'd like to interact with
+account.user_id = '<W-UserID>'
+```
+
+## API Official Doc 
+
+* [When I Work API Doc](https://apidocs.wheniwork.com/external/index.html)
+
+
+
+
