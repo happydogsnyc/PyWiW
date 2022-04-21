@@ -1,13 +1,7 @@
 import requests
 
 def raise_for_status_with_message(resp):
-    try:
-        resp.raise_for_status()
-    except requests.exceptions.HTTPError as error:
-        if resp.text:
-            raise requests.exceptions.HTTPError('{} \nError message: {}'.format(str(error), resp.text))
-        else:
-            raise error
+    resp.raise_for_status()
 
 
 class WiW(object):
